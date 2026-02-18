@@ -1,4 +1,6 @@
 # Naive Python Implementation
+import numpy as np
+from matplotlib import pyplot as plt
 
 def mandelbrot_point(x, y, max_iterations, bound, power):
     c = complex(x, y)
@@ -16,35 +18,38 @@ def mandelbrot_point(x, y, max_iterations, bound, power):
 
     return result
 
-# Testing the Mandelbrot Point function
-# Known points are extracted from image on Wikipedia: 
-# https://upload.wikimedia.org/wikipedia/commons/d/dc/Mandelbrot_set%2C_plotted_with_Matplotlib.svg
-# The mandelbrot set is visualized using in pyplot, with the colormap parameter set to prism. 
-# The prism colormap, has the property of the rainbow pattern that consist of only 10 colors, repeatedly.
+def compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power):
+    mandelbrot_array = []
+
+    for y_value in y_region:
+        row = []
+        for x_value in x_region:
+            point_iteration = mandelbrot_point(x_value, y_value, max_iterations, bound, power)
+            row.append(point_iteration)
+        mandelbrot_array.append(row)
+
+    return mandelbrot_array
+
+# regions
+x_min, x_max = -2, 1
+y_min, y_max = -1.5, 1.5
+
+x_res, y_res = 1024, 1024
+
+x_region = np.linspace(x_min, x_max, x_res)
+y_region = np.linspace(y_min, y_max, y_res)
 
 max_iterations = 100
 bound = 2
 power = 2
 
-known_points = [
-    {'x':0, 'y':0, 'expected':0},
-    {'x':-1.95, 'y':-0.6, 'expected':1},
-    {'x':-1.85, 'y':-0.6, 'expected':2},
-    {'x':-1.6, 'y':-0.5, 'expected':3},
-    {'x':-1.0, 'y':-0.65, 'expected':4},
-    {'x':-1.0, 'y':-0.5, 'expected':5},
-    {'x':-0.85, 'y':-0.475, 'expected':6},
-    {'x':-0.85, 'y':-0.4, 'expected':7},
-    {'x':-0.775, 'y':-0.375, 'expected':8},
-    {'x':-0.8, 'y':-0.325, 'expected':9}
-]
+mandelbrot_array = compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power)
 
-print(f'{max_iterations=} | {power=}')
-for point in known_points:
-    x = point['x']
-    y = point['y']
-    expected = point['expected']
-
-    result = mandelbrot_point(x, y, max_iterations, bound, power)
-
-    print(f"{x=}, {y=} | {expected=} <-> {result=}")
+ax = plt.axes()
+ax.set_aspect('equal')
+graph = ax.pcolormesh(x_region, y_region, mandelbrot_array, cmap = 'prism')
+plt.colorbar(graph)
+plt.xlabel("Real-Axis")
+plt.ylabel("Imaginary-Axis")
+plt.title('Multibrot set for $z_new = z^2 + c')
+plt.show()
