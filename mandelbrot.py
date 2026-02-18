@@ -1,6 +1,7 @@
 # Naive Python Implementation
 import numpy as np
 from matplotlib import pyplot as plt
+import time
 
 def mandelbrot_point(x, y, max_iterations, bound, power):
     c = complex(x, y)
@@ -43,7 +44,11 @@ max_iterations = 100
 bound = 2
 power = 2
 
+# test time of computation
+start_time = time.time()
 mandelbrot_array = compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power)
+test_time = time.time() - start_time
+print(f'Computation took {test_time:.3f} seconds!')
 
 ax = plt.axes()
 ax.set_aspect('equal')
@@ -51,5 +56,5 @@ graph = ax.pcolormesh(x_region, y_region, mandelbrot_array, cmap = 'prism')
 plt.colorbar(graph)
 plt.xlabel("Real-Axis")
 plt.ylabel("Imaginary-Axis")
-plt.title('Multibrot set for $z_new = z^2 + c')
+plt.title('Multibrot set for $z_n$ = $z^2$ + c')
 plt.show()
