@@ -37,7 +37,7 @@ def test_layout_performance(squares, size, test_functions):
             start_time = time.perf_counter()
             total_sum = test_function(size, square)
             test_time = time.perf_counter() - start_time
-            print(f'Compute Time: {test_time:.3f}\n')
+            print(f'Compute Time: {test_time:.4f}\n')
 
 test_layout_performance(squares, size, test_functions)
 

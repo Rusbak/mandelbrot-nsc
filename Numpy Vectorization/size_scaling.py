@@ -25,6 +25,8 @@ y_min, y_max = -1.5, 1.5
 
 scales = [256, 512, 1024, 2048, 4096]
 
+scale_test_times = []
+
 for scale in scales:
     print(f'Scale: {str(scale)}')
 
@@ -39,6 +41,7 @@ for scale in scales:
     mandelbrot_array = compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power)
     test_time = time.perf_counter() - start_time
     print(f'Computation took {test_time:.3f} seconds!\n')
+    scale_test_times.append(test_time)
 
 '''
 When scaling the dimension by a factor of 2, we are increasing the total number 
