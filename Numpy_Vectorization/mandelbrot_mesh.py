@@ -3,25 +3,17 @@ from matplotlib import pyplot as plt
 import time
 
 def compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power):
-    mandelbrot_array = []
+    complex_number = 1j
+    C = x_region + y_region * complex_number
+    Z = np.zeros_like(C)
+    M = np.zeros(C.shape, dtype=int)
 
-    for y_value in y_region:
-        row = []
-        for x_value in x_region:
-            c = complex(x_value, y_value)
-            z = 0
-            
-            for iteration in range(max_iterations):
-                if(abs(z) >= bound):
-                    row.append(iteration)
-                    break
-                else: 
-                    z = z**power + c
-            else: # this is only called if the for loop never 'breaks'
-                row.append(0)
-        mandelbrot_array.append(row)
+    for iteration in range(max_iterations):
+        mask = np.abs(Z) <= bound
+        Z[mask] = Z[mask]**power + C[mask]
+        M[mask] += 1
 
-    return mandelbrot_array
+    return M
 
 # regions
 x_min, x_max = -2, 1
@@ -31,15 +23,16 @@ x_res, y_res = 1024, 1024
 
 x_region = np.linspace(x_min, x_max, x_res)
 y_region = np.linspace(y_min, y_max, y_res)
+x_region, y_region = np.meshgrid(x_region, y_region)
 
 max_iterations = 100
 bound = 2
 power = 2
 
 # test time of computation
-start_time = time.time()
+start_time = time.perf_counter()
 mandelbrot_array = compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power)
-test_time = time.time() - start_time
+test_time = time.perf_counter() - start_time
 print(f'Computation took {test_time:.3f} seconds!')
 
 ax = plt.axes()
