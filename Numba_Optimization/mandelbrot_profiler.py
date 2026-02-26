@@ -2,6 +2,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 import time
 
+# run this function using: 'kernprof -l -v mandelbrot_profiler.py' in the terminal
+@profile
 def compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power):
     complex_number = 1j
     C = x_region + y_region * complex_number
@@ -37,7 +39,7 @@ print(f'Computation took {test_time:.3f} seconds!')
 
 ax = plt.axes()
 ax.set_aspect('equal')
-graph = ax.pcolormesh(x_region, y_region, mandelbrot_array, cmap = 'prism')
+graph = ax.pcolormesh(x_region, y_region, mandelbrot_array, cmap = 'twilight_shifted')
 plt.colorbar(graph)
 plt.xlabel("Real")
 plt.ylabel("Imaginary")
