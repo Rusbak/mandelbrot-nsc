@@ -1,0 +1,23 @@
+Timer unit: 1e-07 s
+
+Total time: 1.67737 s
+File: c:\Python Projects\mandelbrot-nsc\Numba_Optimization\mandelbrot_profiler.py
+Function: compute_numpy_mandelbrot at line 33
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    33                                           @line_profiler.profile
+    34                                           def compute_numpy_mandelbrot(x_mesh, y_mesh, max_iterations, bound, power):
+    35         1         18.0     18.0      0.0      complex_number = 1j
+    36         1     141186.0 141186.0      0.8      C = x_mesh + y_mesh * complex_number
+    37         1      45604.0  45604.0      0.3      Z = np.zeros_like(C)
+    38         1        308.0    308.0      0.0      M = np.zeros(C.shape, dtype=int)
+    39                                           
+    40       101       2743.0     27.2      0.0      for iteration in range(max_iterations):
+    41       100    6082223.0  60822.2     36.3          mask = np.abs(Z) <= bound
+    42       100    8302637.0  83026.4     49.5          Z[mask] = Z[mask]**power + C[mask]
+    43       100    2198941.0  21989.4     13.1          M[mask] += 1
+    44                                           
+    45         1          6.0      6.0      0.0      return M
+
+  1.68 seconds - c:\Python Projects\mandelbrot-nsc\Numba_Optimization\mandelbrot_profiler.py:33 - compute_numpy_mandelbrot

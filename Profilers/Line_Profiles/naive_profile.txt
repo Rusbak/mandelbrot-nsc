@@ -1,0 +1,32 @@
+Timer unit: 1e-07 s
+
+Total time: 22.1629 s
+File: c:\Python Projects\mandelbrot-nsc\Numba_Optimization\mandelbrot_profiler.py
+Function: compute_naive_mandelbrot at line 10
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    10                                           @line_profiler.profile
+    11                                           def compute_naive_mandelbrot(x_region, y_region, max_iterations, bound, power):
+    12         1         22.0     22.0      0.0      mandelbrot_array = []
+    13                                           
+    14      1025       5464.0      5.3      0.0      for y_value in y_region:
+    15      1024       5027.0      4.9      0.0          row = []
+    16                                           
+    17   1049600    3032438.0      2.9      1.4          for x_value in x_region:
+    18   1048576    4254225.0      4.1      1.9              c = complex(x_value, y_value)
+    19   1048576    2487380.0      2.4      1.1              z = 0
+    20                                           
+    21  23008310   53669969.0      2.3     24.2              for iteration in range(max_iterations):
+    22  22828510   78029307.0      3.4     35.2                  if(abs(z) >= bound):
+    23    868776    3257896.0      3.7      1.5                      row.append(iteration)
+    24    868776    2116594.0      2.4      1.0                      break
+    25                                                           else: 
+    26  21959734   74032973.0      3.4     33.4                      z = z**power + c
+    27                                                       else: # this is only called if the for loop never 'breaks'
+    28    179800     731952.0      4.1      0.3                  row.append(max_iterations)
+    29      1024       5520.0      5.4      0.0          mandelbrot_array.append(row)
+    30                                           
+    31         1          9.0      9.0      0.0      return mandelbrot_array
+
+ 22.16 seconds - c:\Python Projects\mandelbrot-nsc\Numba_Optimization\mandelbrot_profiler.py:10 - compute_naive_mandelbrot
