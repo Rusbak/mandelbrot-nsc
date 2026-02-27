@@ -1,0 +1,18 @@
+Fri Feb 27 17:33:02 2026    cProfiles/numpy_profile.prof
+
+         10 function calls in 1.517 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    1.517    1.517 {built-in method builtins.exec}
+        1    0.003    0.003    1.517    1.517 <string>:1(<module>)
+        1    1.510    1.510    1.514    1.514 c:\Python Projects\mandelbrot-nsc\Numpy_Vectorization\mandelbrot_mesh.py:5(compute_mandelbrot_grid)
+        1    0.004    0.004    0.004    0.004 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\numeric.py:98(zeros_like)
+        2    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\numeric.py:92(_zeros_like_dispatcher)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\multiarray.py:1106(copyto)
+        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\multiarray.py:115(empty_like)
+
+
