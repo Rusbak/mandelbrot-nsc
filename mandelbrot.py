@@ -33,7 +33,7 @@ power = 2
 start_time = time.perf_counter()
 mandelbrot_array = compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power)
 test_time = time.perf_counter() - start_time
-print(f'Computation took {test_time:.3f} seconds!')
+print(f'Computation took {test_time:.4f} seconds!')
 
 ax = plt.axes()
 ax.set_aspect('equal')

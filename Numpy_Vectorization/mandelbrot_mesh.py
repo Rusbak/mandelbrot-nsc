@@ -19,10 +19,10 @@ def compute_mandelbrot_grid(x_mesh, y_mesh, max_iterations, bound, power):
 x_min, x_max = -2, 1
 y_min, y_max = -1.5, 1.5
 
-x_res, y_res = 1024, 1024
+res = 1024
 
-x_region = np.linspace(x_min, x_max, x_res)
-y_region = np.linspace(y_min, y_max, y_res)
+x_region = np.linspace(x_min, x_max, res)
+y_region = np.linspace(y_min, y_max, res)
 x_mesh, y_mesh = np.meshgrid(x_region, y_region)
 
 max_iterations = 100
@@ -31,6 +31,7 @@ power = 2
 
 if __name__ == '__main__':
     # test time of computation
+    warm_up = compute_mandelbrot_grid(x_mesh, y_mesh, 1, bound, power)
     start_time = time.perf_counter()
     mandelbrot_array = compute_mandelbrot_grid(x_mesh, y_mesh, max_iterations, bound, power)
     test_time = time.perf_counter() - start_time
