@@ -35,7 +35,7 @@ def compute_numpy_mandelbrot(x_mesh, y_mesh, max_iterations, bound, power):
     complex_number = 1j
     C = x_mesh + y_mesh * complex_number
     Z = np.zeros_like(C)
-    M = np.zeros(C.shape, dtype=int)
+    M = np.zeros(C.shape, dtype=np.int32)
 
     for iteration in range(max_iterations):
         mask = np.abs(Z) <= bound
