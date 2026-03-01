@@ -44,19 +44,18 @@ def compute_numpy_mandelbrot(x_mesh, y_mesh, max_iterations, bound, power):
 
     return M
 
-# regions
-x_min, x_max = -2, 1
-y_min, y_max = -1.5, 1.5
-
-x_res, y_res = 1024, 1024
-
-x_region = np.linspace(x_min, x_max, x_res)
-y_region = np.linspace(y_min, y_max, y_res)
-x_mesh, y_mesh = np.meshgrid(x_region, y_region)
-
+# parameters
 max_iterations = 100
 bound = 2
 power = 2
+x_res, y_res = 1024, 1024
+
+# regions
+x_min, x_max = -2, 1
+y_min, y_max = -1.5, 1.5
+x_region = np.linspace(x_min, x_max, x_res)
+y_region = np.linspace(y_min, y_max, y_res)
+x_mesh, y_mesh = np.meshgrid(x_region, y_region)
 
 # run the functions to get the line profiles
 naive_mandelbrot = compute_naive_mandelbrot(x_region, y_region, max_iterations, bound, power)

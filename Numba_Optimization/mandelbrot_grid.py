@@ -1,21 +1,24 @@
 import numpy as np
 from matplotlib import pyplot as plt
 import time
+from numba import njit
 
-def compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power, res):
-    x_mesh, y_mesh = np.meshgrid(x_region, y_region)
-    
-    complex_number = 1j
-    C = x_mesh + y_mesh * complex_number
-    Z = np.zeros_like(C)
-    M = np.zeros(C.shape, dtype=np.int32)
+@njit
+def compute_numba_naive_mandelbrot(x_region, y_region, max_iterations, bound, power, res):
+    result = np.zeros((res,res), dtype=np.int32)
 
-    for iteration in range(max_iterations):
-        mask = np.abs(Z) <= bound
-        Z[mask] = Z[mask]**power + C[mask]
-        M[mask] += 1
+    for i in range(res):
+        for j in range(res):
+            c = x_region[j] + y_region[i] * 1j
+            z = 0j
+            n = 0
 
-    return M
+            while n < max_iterations and z.real*z.real + z.imag*z.imag <= bound*bound:
+                z = z*z + c
+                n += 1
+            result[i,j] = n
+
+    return result
 
 # parameters
 max_iterations = 100
@@ -31,9 +34,9 @@ y_region = np.linspace(y_min, y_max, res)
 
 if __name__ == '__main__':
     # test time of computation
-    warm_up = compute_mandelbrot_grid(x_region, y_region, 1, bound, power, res)
+    warm_up = compute_numba_naive_mandelbrot(x_region, y_region, 1, bound, power, res)
     start_time = time.perf_counter()
-    mandelbrot_array = compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power, res)
+    mandelbrot_array = compute_numba_naive_mandelbrot(x_region, y_region, max_iterations, bound, power, res)
     test_time = time.perf_counter() - start_time
     print(f'Computation took {test_time:.5f} seconds!')
 

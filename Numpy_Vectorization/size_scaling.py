@@ -40,7 +40,7 @@ for scale in scales:
     start_time = time.perf_counter()
     mandelbrot_array = compute_mandelbrot_grid(x_region, y_region, max_iterations, bound, power)
     test_time = time.perf_counter() - start_time
-    print(f'Computation took {test_time:.3f} seconds!\n')
+    print(f'Computation took {test_time:.4f} seconds!\n')
     scale_test_times.append(test_time)
 
 '''
