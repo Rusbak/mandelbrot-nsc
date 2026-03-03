@@ -1,18 +1,39 @@
-Fri Feb 27 17:33:02 2026    cProfiles/numpy_profile.prof
+Mon Mar  2 23:29:22 2026    Profilers/cProfiles/numpy_profile.prof
 
-         10 function calls in 1.517 seconds
+         51 function calls in 1.707 seconds
 
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1    0.000    0.000    1.517    1.517 {built-in method builtins.exec}
-        1    0.003    0.003    1.517    1.517 <string>:1(<module>)
-        1    1.510    1.510    1.514    1.514 c:\Python Projects\mandelbrot-nsc\Numpy_Vectorization\mandelbrot_mesh.py:5(compute_mandelbrot_grid)
-        1    0.004    0.004    0.004    0.004 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\numeric.py:98(zeros_like)
+        1    0.000    0.000    1.707    1.707 {built-in method builtins.exec}
+        1    0.004    0.004    1.707    1.707 <string>:1(<module>)
+        1    1.691    1.691    1.703    1.703 c:\Python Projects\mandelbrot-nsc\Numpy_Vectorization\mandelbrot_mesh.py:5(compute_mandelbrot_grid)
+        1    0.000    0.000    0.007    0.007 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_function_base_impl.py:5134(meshgrid)
+        1    0.006    0.006    0.006    0.006 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\numeric.py:98(zeros_like)
+        3    0.000    0.000    0.006    0.002 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_function_base_impl.py:5280(<genexpr>)
+        2    0.006    0.003    0.006    0.003 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.001    0.001 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:481(broadcast_arrays)
+        1    0.000    0.000    0.001    0.001 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:546(<listcomp>)
+        2    0.001    0.000    0.001    0.000 c:\Users\mikke\anaItconda3\envs\NSC\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:340(_broadcast_to)
         2    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
-        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\numeric.py:92(_zeros_like_dispatcher)
+        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_function_base_impl.py:5267(<listcomp>)
+        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:413(_broadcast_shape)
+        2    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:542(<listcomp>)
+        2    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_function_base_impl.py:358(iterable)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.any}
+        4    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        2    0.000    0.000    0.000    0.000 {built-in method numpy.asanyarray}
+        2    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:24(_maybe_view_as_subclass)
+        6    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:345(<genexpr>)
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
-        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\multiarray.py:1106(copyto)
+        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\numeric.py:92(_zeros_like_dispatcher)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        2    0.000    0.000    0.000    0.000 {method '__exit__' of 'numpy.nditer' objects}
         1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\multiarray.py:115(empty_like)
+        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\_core\multiarray.py:1106(copyto)
+        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_function_base_impl.py:5129(_meshgrid_dispatcher)
+        1    0.000    0.000    0.000    0.000 c:\Users\mikke\anaconda3\envs\NSC\Lib\site-packages\numpy\lib\_stride_tricks_impl.py:477(_broadcast_arrays_dispatcher)
 
 

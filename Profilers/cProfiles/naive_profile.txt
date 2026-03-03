@@ -1,15 +1,15 @@
-Fri Feb 27 17:33:01 2026    cProfiles/naive_profile.prof
+Mon Mar  2 23:29:20 2026    Profilers/cProfiles/naive_profile.prof
 
-         23878114 function calls in 6.473 seconds
+         23878114 function calls in 6.305 seconds
 
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1    0.000    0.000    6.473    6.473 {built-in method builtins.exec}
-        1    0.002    0.002    6.473    6.473 <string>:1(<module>)
-        1    5.144    5.144    6.471    6.471 c:\Python Projects\mandelbrot-nsc\Naive\mandelbrot_grid.py:5(compute_mandelbrot_grid)
- 22828510    1.257    0.000    1.257    0.000 {built-in method builtins.abs}
-  1049600    0.070    0.000    0.070    0.000 {method 'append' of 'list' objects}
+        1    0.000    0.000    6.305    6.305 {built-in method builtins.exec}
+        1    0.003    0.003    6.305    6.305 <string>:1(<module>)
+        1    5.027    5.027    6.303    6.303 c:\Python Projects\mandelbrot-nsc\Naive\mandelbrot_grid.py:5(compute_mandelbrot_grid)
+ 22828510    1.203    0.000    1.203    0.000 {built-in method builtins.abs}
+  1049600    0.073    0.000    0.073    0.000 {method 'append' of 'list' objects}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
 
