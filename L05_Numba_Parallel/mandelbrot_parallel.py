@@ -6,7 +6,7 @@ from multiprocessing import Pool
 import os
 import statistics
 
-@njit
+@njit(cache=True)
 def mandelbrot_pixel(c_real, c_imag, max_iterations, bound):
     z_real = 0.0
     z_imag = 0.0
@@ -24,7 +24,7 @@ def mandelbrot_pixel(c_real, c_imag, max_iterations, bound):
 
     return max_iterations
 
-@njit
+@njit(cache=True)
 def mandelbrot_chunk(row_start, row_end, res, x_min, x_max, y_min, y_max, max_iterations, bound):
     chunk_output = np.empty((row_end - row_start, res), dtype=np.int32)
     
@@ -48,8 +48,8 @@ def mandelbrot_serial(res, x_min, x_max, y_min, y_max, max_iterations, bound):
 def _worker(args):
     return mandelbrot_chunk(*args)
 
-def mandelbrot_parallel(res, x_min, x_max, y_min, y_max, max_iterations, bound, num_workers):
-    chunk_size = max(1, res // num_workers)
+def mandelbrot_parallel(res, x_min, x_max, y_min, y_max, max_iterations, bound, num_workers, num_chunks, pool):
+    chunk_size = max(1, res // num_chunks)
     chunks = []
 
     row = 0
@@ -58,14 +58,26 @@ def mandelbrot_parallel(res, x_min, x_max, y_min, y_max, max_iterations, bound, 
         chunks.append((row, row_end, res, x_min, x_max, y_min, y_max, max_iterations, bound))
         row = row_end
     
-    with Pool(processes=num_workers) as pool:
-        pool.map(_worker, chunks)
+    if pool:
+        parts = pool.map(_worker, chunks)
+        mandelbrot_stack = np.vstack(parts)
+
+        return mandelbrot_stack
+
+    tiny = [(0, 8, 8, x_min, x_max, y_min, y_max, max_iterations, bound)]
+
+    with Pool(processes=num_workers) as pool: # remove benchmark from here
         parallel_times = []
         for _ in range(5): # 5 tests
+            warm_up = pool.map(_worker, tiny)
+
             test_start = time.perf_counter()
-            mandelbrot_stack = np.vstack(pool.map(_worker,chunks))
+            parts = pool.map(_worker, chunks)
+            mandelbrot_stack = np.vstack(parts)
             test_time = time.perf_counter() - test_start
+
             parallel_times.append(test_time)
+
     parallel_median = statistics.median(parallel_times)
     print(f"Median Compute Time: {parallel_median:.5f}s")
 
@@ -104,72 +116,48 @@ if __name__ == '__main__':
     mandelbrot_array, serial_median = benchmark(mandelbrot_serial, 5, res, x_min, x_max, y_min, y_max, max_iterations, bound)
     print()
 
-    ax = plt.axes()
-    ax.set_aspect('equal')
-    graph = ax.pcolormesh(x_region, y_region, mandelbrot_array, cmap='twilight_shifted')
-    plt.colorbar(graph)
-    plt.xlabel("Real")
-    plt.ylabel("Imaginary")
-    plt.title('Mandelbrot set for $z_n$ = $z^2$ + c')
-    plt.show()
+    # ax = plt.axes()
+    # ax.set_aspect('equal')
+    # graph = ax.pcolormesh(x_region, y_region, mandelbrot_array, cmap='twilight_shifted')
+    # plt.colorbar(graph)
+    # plt.xlabel("Real")
+    # plt.ylabel("Imaginary")
+    # plt.title('Mandelbrot set for $z_n$ = $z^2$ + c')
+    # plt.show()
 
     # Milestone 2
-    num_workers = 4
-    print(f'Mandelbrot Parallel ({num_workers}):')
-    mandelbrot_array = mandelbrot_parallel(res, x_min, x_max, y_min, y_max, max_iterations, bound, num_workers)
-    print()
+    num_workers = 12 # best amount found from L4
+    tiny = [(0, 8, 8, x_min, x_max, y_min, y_max, max_iterations, bound)]
+    chunks_per_worker = [1, 2, 4, 8, 16, 32, 64, 128]
 
-    ax = plt.axes()
-    ax.set_aspect('equal')
-    graph = ax.pcolormesh(x_region, y_region, mandelbrot_array, cmap='twilight_shifted')
-    plt.colorbar(graph)
-    plt.xlabel("Real")
-    plt.ylabel("Imaginary")
-    plt.title('Mandelbrot set for $z_n$ = $z^2$ + c')
-    plt.show()
+    print(f'Mandelbrot Parallel ({num_workers} workers):')
+    print(f"{'Chunks':>6} | {'Compute Time':>12} | {'Speed Up':>8} | {'LIF':>4}")
+    for mult in chunks_per_worker:
+        num_chunks = num_workers * mult
 
-    # Milestone 3
-    for n_workers in range(1, os.cpu_count() + 1):
-        chunk_size = max(1, res // n_workers)
-        chunks = []
+        with Pool(processes=num_workers) as pool:
+            warm_up = pool.map(_worker, tiny)
 
-        row = 0
-        while row < res:
-            end = min(row + chunk_size, res)
-            chunks.append((row, end, res, x_min, x_max, y_min, y_max, max_iterations, bound))
-            row = end
-
-        with Pool(processes=n_workers) as pool:
-            warm_up = pool.map(_worker, chunks)
-            parallel_times = []
-
-            for _ in range(5): # 5 tests
+            test_times = []
+            for test in range(5):
                 test_start = time.perf_counter()
-                np.vstack(pool.map(_worker, chunks)) # visualization already happened in Milestone 2 :)
+                mandelbrot_array = mandelbrot_parallel(res, x_min, x_max, y_min, y_max, max_iterations, bound, num_workers, num_chunks, pool)
                 test_time = time.perf_counter() - test_start
-                parallel_times.append(test_time)
-        parallel_median = statistics.median(parallel_times)
+                test_times.append(test_time)
 
-        speedup = serial_median / parallel_median
-        print(f"{n_workers:2d} workers: {parallel_median:.5f}s, speedup={speedup:.2f}x, eff={speedup/n_workers*100:.0f}%")
+        parallel_median = statistics.median(test_times)
+        lif = num_workers * parallel_median / serial_median - 1
+        speed_up = serial_median / parallel_median
+        print(f'{num_chunks:6d} | {parallel_median:11.5f}s | {speed_up:7.3f}x | {lif:3.2f}')
 
-        '''Copy + paste from terminal window:
-        Mandelbrot Serial:
-        Median Compute Time: 0.05315s
-
-        Mandelbrot Parallel (4):
-        Median Compute Time: 0.03935s
-
-         1 workers: 0.05431s, speedup=0.98x, eff=98%
-         2 workers: 0.03165s, speedup=1.68x, eff=84%
-         3 workers: 0.04602s, speedup=1.15x, eff=38%
-         4 workers: 0.03238s, speedup=1.64x, eff=41%
-         5 workers: 0.03438s, speedup=1.55x, eff=31%
-         6 workers: 0.02723s, speedup=1.95x, eff=33%
-         7 workers: 0.02723s, speedup=1.95x, eff=28%
-         8 workers: 0.02537s, speedup=2.10x, eff=26%
-         9 workers: 0.02442s, speedup=2.18x, eff=24%
-        10 workers: 0.02523s, speedup=2.11x, eff=21%
-        11 workers: 0.02190s, speedup=2.43x, eff=22%
-        12 workers: 0.02258s, speedup=2.35x, eff=20%
-        '''
+    '''Copy + paste from terminal window:
+    Chunks | Compute Time | Speed Up |  LIF
+        12 |     0.01859s |   2.504x | 3.79
+        24 |     0.01401s |   3.321x | 2.61
+        48 |     0.01294s |   3.597x | 2.34
+        96 |     0.02147s |   2.168x | 4.54
+       192 |     0.01873s |   2.485x | 3.83
+       384 |     0.02098s |   2.219x | 4.41
+       768 |     0.01907s |   2.440x | 3.92
+      1536 |     0.02073s |   2.245x | 4.34
+    '''
