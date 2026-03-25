@@ -146,8 +146,8 @@ if __name__ == '__main__':
                 test_times.append(test_time)
 
         parallel_median = statistics.median(test_times)
-        lif = num_workers * parallel_median / serial_median - 1
         speed_up = serial_median / parallel_median
+        lif = num_workers * parallel_median / serial_median - 1
         print(f'{num_chunks:6d} | {parallel_median:11.5f}s | {speed_up:7.3f}x | {lif:3.2f}')
 
     '''Copy + paste from terminal window:
