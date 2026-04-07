@@ -1,7 +1,7 @@
 import numpy as np
-from matplotlib import pyplot as plt
 import time
 from numba import njit
+from matplotlib import pyplot as plt
 
 @njit
 def compute_numba_naive_mandelbrot(x_region, y_region, max_iterations, bound, power, res):
@@ -16,7 +16,7 @@ def compute_numba_naive_mandelbrot(x_region, y_region, max_iterations, bound, po
             while n < max_iterations and z.real*z.real + z.imag*z.imag <= bound*bound:
                 z = z*z + c
                 n += 1
-            result[i,j] = n
+            result[i, j] = n
 
     return result
 

@@ -72,7 +72,7 @@ if __name__ == '__main__':
         print()
 
 '''
-copy + paste from terminal window:
+Copy + Paste from terminal window:
 
 Serial
 Pi Estimate:3.141530 (error: 0.000062)
