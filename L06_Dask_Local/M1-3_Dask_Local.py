@@ -1,4 +1,6 @@
-import dask, numpy as np, time, statistics
+import numpy as np
+import time, statistics
+import dask
 from dask import delayed
 from dask.distributed import Client, LocalCluster
 from numba import njit
