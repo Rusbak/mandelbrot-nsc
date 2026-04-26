@@ -72,7 +72,8 @@ queue.finish()
 print(f"GPU {N}x{N}: {median*1e3:.1f} ms (float32)")
 plt.imshow(image_32, cmap='twilight_shifted', origin='lower'); 
 plt.axis('off')
-plt.savefig("L10_GPU_Computation/mandelbrot_gpu_32.png", dpi=300, bbox_inches='tight')
+plt.savefig("L10_GPU_Computation/Mandelbrot_GPU_32.png", dpi=300, bbox_inches='tight')
+
 # precision: float64
 KERNEL_SRC_64 = """
 #pragma OPENCL EXTENSION cl_khr_fp64 : enable
@@ -139,7 +140,7 @@ queue.finish()
 print(f"GPU {N}x{N}: {median*1e3:.1f} ms (float64)")
 plt.imshow(image_64, cmap='twilight_shifted', origin='lower'); 
 plt.axis('off')
-plt.savefig("L10_GPU_Computation/mandelbrot_gpu_64.png", dpi=300, bbox_inches='tight')
+plt.savefig("L10_GPU_Computation/Mandelbrot_GPU_64.png", dpi=300, bbox_inches='tight')
 
 fig, axes = plt.subplots(1, 2)
 
@@ -153,5 +154,5 @@ axes[1].set_title("float64")
 axes[1].axis('off')
 
 plt.tight_layout()
-plt.savefig('L10_GPU_Computation/precision_comparison.png', dpi=300, bbox_inches='tight')
+plt.savefig('L10_GPU_Computation/Precision_Comparison.png', dpi=300, bbox_inches='tight')
 plt.close()

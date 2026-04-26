@@ -34,8 +34,8 @@ plt.ylabel("Time (seconds, log scale)")
 plt.title("Mandelbrot Implementation Performance Comparison (1024)")
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
+plt.savefig("L10_GPU_Computation/Implementation_Comparison.png", dpi=300, bbox_inches='tight')
 plt.show()
-
 
 # -----------------------
 # Chart 2: Resolution Sweep
@@ -59,4 +59,5 @@ plt.title("Resolution Scaling: Dask vs GPU")
 plt.xticks(x, resolutions)
 plt.legend()
 plt.tight_layout()
+plt.savefig("L10_GPU_Computation/Resolution_Scaling.png", dpi=300, bbox_inches='tight')
 plt.show()

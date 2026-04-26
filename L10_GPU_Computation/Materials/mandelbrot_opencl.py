@@ -1,21 +1,3 @@
-"""
-mandelbrot_opencl.py — Reference GPU Mandelbrot implementation using PyOpenCL.
-
-Milestone M2/M4 reference for L10.
-
-This matches the kernel developed in the L10 studio session:
-  - One work-item per pixel (2D NDRange: N×N)
-  - float32 kernel (fast, works on all OpenCL devices)
-  - Optional float64 variant (checks cl_khr_fp64 extension)
-
-Usage:
-    python mandelbrot_opencl.py
-
-Output:
-    Console: timing comparison (float32 vs float64)
-    File:    mandelbrot_opencl.png
-"""
-
 import time
 import numpy as np
 import pyopencl as cl
