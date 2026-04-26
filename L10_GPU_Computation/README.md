@@ -15,8 +15,6 @@ L10 introduces GPU architecture and when GPU acceleration is beneficial. GPUs pr
 - [x] Write the Kernel in C
 - [x] Run the Mandelbrot Algorithm with float32 Precision
 
-![Mandelbrot float32](Mandelbrot_GPU_32.png)
-
 ### Milestone 2 - float32 vs float64
 - [ ] Run the Mandelbrot Algorithm with float64 Precision
 - [ ] Compare Precisions
