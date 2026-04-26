@@ -18,7 +18,8 @@ L10 introduces GPU architecture and when GPU acceleration is beneficial. GPUs pr
 ### Milestone 2 - float32 vs float64
 - [ ] Run the Mandelbrot Algorithm with float64 Precision
 - [ ] Compare Precisions
-Copmute Device (Laptop GPU) does not support float64
+
+Compute Device (Laptop GPU) does not support float64
 
 ### Milestone 3 - GPU Benchmark
 - [x] Make a Bar Chart of all Implementations
