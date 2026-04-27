@@ -13,21 +13,21 @@ print(f"  Compute units: {dev.max_compute_units}")
 print()
 
 # square each element of a float32 array in the kernel
-kernel_source = """
+KERNEL_SRC = """
 __kernel void square(__global float *a) {
     int i = get_global_id(0);
     a[i] = a[i] * a[i];
 }
 """
 
-prog = cl.Program(ctx, kernel_source).build()
+prog = cl.Program(ctx, KERNEL_SRC).build()
 
 # allocate the host and device buffers
 a_host = np.array([1.0, 2.0, 3.0, 4.0], dtype=np.float32)
-result  = np.empty_like(a_host)
+result = np.empty_like(a_host)
 
-mf      = cl.mem_flags
-a_dev   = cl.Buffer(ctx, mf.READ_WRITE | mf.COPY_HOST_PTR, hostbuf=a_host)
+mf = cl.mem_flags
+a_dev = cl.Buffer(ctx, mf.READ_WRITE | mf.COPY_HOST_PTR, hostbuf=a_host)
 
 # launch the kernel
 prog.square(queue, a_host.shape, None, a_dev)

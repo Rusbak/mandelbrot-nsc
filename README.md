@@ -56,7 +56,7 @@ Performance table for each implemenatation of the Mandelbrot, computed through t
 |GPU Computing      |0.00220 s|34.373x|1622.123x|
 
 Bar chart combining each of the times from the performance table above. The bar chart is show at log-scale, due to the large increase over each of the implementations:
-![Implementation Comparison](L10_GPU_Computation/Implementation_Comparison.png)
+![Implementation Comparison](L10_GPU_Computation/Images/Implementation_Comparison.png)
 
 ### Resolution Scaling
 Some of the implementations are so quick that a resolution scale has been done to do them justice.
@@ -75,4 +75,4 @@ As the resolution goes up, we keep track of the decrease in compute time (Slow-D
 |GPU Computing | 8192|0.0618 s| 28.091x|
 |GPU Computing |16384|0.2379 s|108.136x|
 
-![Resolution Scaling](L10_GPU_Computation/Resolution_Scaling.png)
+![Resolution Scaling](L10_GPU_Computation/Images/Resolution_Scaling.png)

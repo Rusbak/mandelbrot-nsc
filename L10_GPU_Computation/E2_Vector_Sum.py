@@ -157,7 +157,7 @@ if __name__ == "__main__":
 
     plt.suptitle(f"GPU Mandelbrot  N={N}  device: {dev.name}", fontsize=10)
     plt.tight_layout()
-    out = "mandelbrot_opencl.png"
+    out = "Images/Mandelbrot_opencl.png"
     plt.savefig(out, dpi=150)
     plt.show()
     print(f"\nSaved to {out}")

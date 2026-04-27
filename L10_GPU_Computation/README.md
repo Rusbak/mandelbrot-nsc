@@ -52,4 +52,44 @@ As the resolution goes up, we keep track of the decrease in compute time (Slow-D
 |GPU Computing | 8192|0.0618 s| 28.091x|
 |GPU Computing |16384|0.2379 s|108.136x|
 
-![Resolution Scaling](Resolution_Scaling.png)
+![Resolution Scaling](Images/Resolution_Scaling.png)
+
+## Extra Work
+### Mandelbrot Fractals
+#### Julia Set
+c is constant and z_0 is determined by the pixel
+
+![Julia Set](Images/Fractal_Julia.png)
+
+#### Burning Ship
+squares the absolute value of z
+
+![Burning Ship](Images/Fractal_Burning_Ship.png)
+
+#### Tricorn
+the imaginary part is ignored
+
+![Tricorn](Images/Fractal_Tricorn.png)
+
+### Buddhabrot
+
+![Buddhabrot](Images/Buddhabrot.png)
+
+### Nebulabrot
+The Nebulabrot essentially computes a mandelbrot for each RGB-channel at different thresholds, and stack them resulting in a brighter image. This could be normalized, but it looks cool like this.
+
+![Nebulabrot](Images/Nebulabrot.png)
+
+Since we are working with color thresholds, we can achieve different outcomes, by simply changing the thresholds slightly, as seen below.
+
+#### Anaglyphbrot
+
+![Anaglyphbrot](Images/Nebulabrot_Anaglyph.png)
+
+#### Jellybrot
+
+![Jellybrot](Images/Nebulabrot_Jelly.png)
+
+#### Heartbrot
+
+![Heartbrot](Images/Nebulabrot_Heart.png)
